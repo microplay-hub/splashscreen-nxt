@@ -10,7 +10,7 @@
 # See the LICENSE.md file at the top-level directory of this distribution and
 # at https://raw.githubusercontent.com/RetroPie/RetroPie-Setup/master/LICENSE.md
 #
-# Splashscreen for Orangepi v1.4 - 2023-02-22
+# rpmenu-iconscript v1.7 - 2023-02-22
 
 rp_module_id="splashscreen-opi"
 rp_module_desc="Configure Splashscreen for OrangePi"
@@ -21,9 +21,15 @@ rp_module_flags="noinstclean !rpi"
 function _update_hook_splashscreen-opi() {
     # make sure splashscreen is always up to date if updating just RetroPie-Setup
     if rp_isInstalled "$md_id"; then
-        install_bin_splashscreen-opi
+        install_splashscreen-opi
         configure_splashscreen-opi
     fi
+}
+
+
+function depends_splashscreen-opi() {
+    local params=(fbi vorbis-tools mpv insserv)
+    getDepends "${params[@]}"
 }
 
 function sources_splashscreen-opi() {
@@ -33,23 +39,10 @@ function sources_splashscreen-opi() {
     gitPullOrClone "$md_inst"
 }
 
-function _image_exts_splashscreen-opi() {
-    echo '\.bmp\|\.jpg\|\.jpeg\|\.gif\|\.png\|\.ppm\|\.tiff\|\.webp'
-}
-
-function _video_exts_splashscreen-opi() {
-    echo '\.avi\|\.mov\|\.mp4\|\.mkv\|\.3gp\|\.mpg\|\.mp3\|\.wav\|\.m4a\|\.aac\|\.ogg\|\.flac'
-}
-
-function depends_splashscreen-opi() {
-    local params=(fbi vorbis-tools mpv insserv)
-    getDepends "${params[@]}"
-}
-
 function install_splashscreen-opi() {
     cat > "/etc/systemd/system/asplashscreen-opi.service" << _EOF_
 [Unit]
-Description=Show custom splashscreen
+Description=Show RetroPie splashscreen by Liontek1985
 DefaultDependencies=no
 Before=local-fs-pre.target
 Wants=local-fs-pre.target
@@ -66,8 +59,6 @@ _EOF_
 
     rp_installModule "omxiv" "_autoupdate_"
 
-	gitPullOrClone "$md_inst" "https://github.com/microplay-hub/mpcore-splashscreens.git master"
-
     iniConfig "=" '"' "$md_inst/asplashscreen-opi.sh"
     iniSet "ROOTDIR" "$rootdir"
     iniSet "DATADIR" "$datadir"
@@ -83,13 +74,19 @@ _EOF_
     mkUserDir "$datadir/splashscreens-opi"
     echo "Place your own splashscreens in here." >"$datadir/splashscreens-opi/README.txt"
     chown $user:$user "$datadir/splashscreens-opi/README.txt"
-
-    local splsetup="$scriptdir/scriptmodules/supplementary"	
-    cd "$md_inst"
-#	cp -r "splashscreen-opi.sh" "$splsetup/splashscreen-opi.sh"
-    chown -R $user:$user "$splsetup/splashscreen-opi.sh"
-	chmod 755 "$splsetup/splashscreen-opi.sh"
+	
+#	cp -r "splashscreen-opi.sh" "$rpmsetup/splashscreen-opi.sh"
+    chown -R $user:$user "$rpmsetup/splashscreen-opi.sh"
+	chmod -R 755 "$md_inst"
 	rm -r "splashscreen-opi.sh"
+}
+
+function _image_exts_splashscreen-opi() {
+    echo '\.bmp\|\.jpg\|\.jpeg\|\.gif\|\.png\|\.ppm\|\.tiff\|\.webp'
+}
+
+function _video_exts_splashscreen-opi() {
+    echo '\.avi\|\.mov\|\.mp4\|\.mkv\|\.3gp\|\.mpg\|\.mp3\|\.wav\|\.m4a\|\.aac\|\.ogg\|\.flac'
 }
 
 function enable_plymouth_splashscreen-opi() {
