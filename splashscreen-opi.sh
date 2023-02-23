@@ -10,7 +10,7 @@
 # See the LICENSE.md file at the top-level directory of this distribution and
 # at https://raw.githubusercontent.com/RetroPie/RetroPie-Setup/master/LICENSE.md
 #
-# rpmenu-iconscript v1.8 - 2023-02-22
+# splashscreen-opi v1.8 - 2023-02-22
 
 rp_module_id="splashscreen-opi"
 rp_module_desc="Configure Splashscreen for OrangePi"
