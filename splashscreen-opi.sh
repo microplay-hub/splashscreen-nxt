@@ -10,7 +10,7 @@
 # See the LICENSE.md file at the top-level directory of this distribution and
 # at https://raw.githubusercontent.com/RetroPie/RetroPie-Setup/master/LICENSE.md
 #
-# rpmenu-iconscript v1.7 - 2023-02-22
+# rpmenu-iconscript v1.8 - 2023-02-22
 
 rp_module_id="splashscreen-opi"
 rp_module_desc="Configure Splashscreen for OrangePi"
@@ -75,8 +75,10 @@ _EOF_
     echo "Place your own splashscreens in here." >"$datadir/splashscreens-opi/README.txt"
     chown $user:$user "$datadir/splashscreens-opi/README.txt"
 	
-#	cp -r "splashscreen-opi.sh" "$rpmsetup/splashscreen-opi.sh"
-    chown -R $user:$user "$rpmsetup/splashscreen-opi.sh"
+    local splsetup="$scriptdir/scriptmodules/supplementary"
+    cd "$md_inst"
+#	cp -r "splashscreen-opi.sh" "$splsetup/splashscreen-opi.sh"
+    chown -R $user:$user "$splsetup/splashscreen-opi.sh"
 	chmod -R 755 "$md_inst"
 	rm -r "splashscreen-opi.sh"
 }
