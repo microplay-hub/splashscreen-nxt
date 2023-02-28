@@ -106,8 +106,8 @@ function disable_plymouth_splashscreen-opi() {
 }
 
 function default_splashscreen-opi() {
-    echo "$md_inst/mpnxt-splashscreen.png" >>/etc/splashscreen-opi.list
-    echo "$md_inst/mpnxt-splashload.png" >>/etc/splashscreen-opi.list
+    echo "$md_inst/mpcore-splashscreen.png" >>/etc/splashscreen-opi.list
+    echo "$md_inst/mpcore-splashload.png" >>/etc/splashscreen-opi.list
 }
 
 function enable_splashscreen-opi() {
