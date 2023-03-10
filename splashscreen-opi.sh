@@ -10,7 +10,7 @@
 # See the LICENSE.md file at the top-level directory of this distribution and
 # at https://raw.githubusercontent.com/RetroPie/RetroPie-Setup/master/LICENSE.md
 #
-# splashscreen-opi v2.0 - 2023-03-2023
+# splashscreen-opi v2.02 - 2023-03-10
 # GUI v2
 
 rp_module_id="splashscreen-opi"
@@ -72,6 +72,7 @@ _EOF_
         iniSet "RANDOMIZE" "disabled"
     fi
     chown $user:$user "$configdir/all/$md_id.cfg"
+	chmod 755 "$configdir/all/$md_id.cfg"
 
     mkUserDir "$datadir/splashscreens-opi"
     echo "Place your own splashscreens in here." >"$datadir/splashscreens-opi/README.txt"
