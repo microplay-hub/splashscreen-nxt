@@ -487,7 +487,7 @@ function change-bsn_splashscreen-opi() {
         S6 "set File: bootsnd2.ogg in folder [home-retropie]"
         S7 "set File: bootsnd3.ogg in folder [home-retropie]"
         S8 "set File: bootsnd4.ogg in folder [home-retropie]"
-        OFF "deactive Boot-Sound"
+        OFF "deactivate Boot-Sound"
 		XX "[current file: $bootsnd]"
 		XY "[current folder: $bootsndfolder2]"
     )
