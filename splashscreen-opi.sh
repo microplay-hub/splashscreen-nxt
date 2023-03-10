@@ -10,7 +10,7 @@
 # See the LICENSE.md file at the top-level directory of this distribution and
 # at https://raw.githubusercontent.com/RetroPie/RetroPie-Setup/master/LICENSE.md
 #
-# splashscreen-opi v2.02 - 2023-03-10
+# splashscreen-opi v2.03 - 2023-03-10
 # GUI v2
 
 rp_module_id="splashscreen-opi"
@@ -487,7 +487,8 @@ function change-bsn_splashscreen-opi() {
         S6 "set File: bootsnd2.ogg in folder [home-retropie]"
         S7 "set File: bootsnd3.ogg in folder [home-retropie]"
         S8 "set File: bootsnd4.ogg in folder [home-retropie]"
-		X "[current setting: $bootsndfolder2/$boodsnd]"
+		XX "[actual file: $boodsnd]"
+		XY "[actual folder: $bootsndfolder2]"
     )
     local cmd=(dialog --backtitle "$__backtitle" --menu "Choose an option." 22 86 16)
     local choice=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
