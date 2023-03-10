@@ -10,7 +10,7 @@
 # See the LICENSE.md file at the top-level directory of this distribution and
 # at https://raw.githubusercontent.com/RetroPie/RetroPie-Setup/master/LICENSE.md
 #
-# splashscreen-opi v2.04 - 2023-03-10
+# splashscreen-opi v2.06 - 2023-03-10
 # GUI v2
 
 rp_module_id="splashscreen-opi"
@@ -487,6 +487,7 @@ function change-bsn_splashscreen-opi() {
         S6 "set File: bootsnd2.ogg in folder [home-retropie]"
         S7 "set File: bootsnd3.ogg in folder [home-retropie]"
         S8 "set File: bootsnd4.ogg in folder [home-retropie]"
+        OFF "deactive Boot-Sound"
 		XX "[current file: $bootsnd]"
 		XY "[current folder: $bootsndfolder2]"
     )
@@ -498,49 +499,46 @@ function change-bsn_splashscreen-opi() {
             iniSet "BOOTSND" "bootsnd.ogg"
 			iniSet "BOOTSNDFOLDER" "opt-retropie"
 			iniSet "BOOTSNDFOLDER2" "/opt/retropie/supplementary/splashscreen-opi"
-			msg-bsn_splashscreen-opi
             ;;
         S2)
             iniSet "BOOTSND" "bootsnd2.ogg"
 			iniSet "BOOTSNDFOLDER" "opt-retropie"
 			iniSet "BOOTSNDFOLDER2" "/opt/retropie/supplementary/splashscreen-opi"
-			msg-bsn_splashscreen-opi
             ;;
         S3)
             iniSet "BOOTSND" "bootsnd3.ogg"
 			iniSet "BOOTSNDFOLDER" "opt-retropie"
 			iniSet "BOOTSNDFOLDER2" "/opt/retropie/supplementary/splashscreen-opi"
-			msg-bsn_splashscreen-opi
             ;;
         S4)
             iniSet "BOOTSND" "bootsnd4.ogg"
 			iniSet "BOOTSNDFOLDER" "opt-retropie"
 			iniSet "BOOTSNDFOLDER2" "/opt/retropie/supplementary/splashscreen-opi"
-			msg-bsn_splashscreen-opi
             ;;
         S5)
             iniSet "BOOTSND" "bootsnd.ogg"
 			iniSet "BOOTSNDFOLDER" "home-retropie"
 			iniSet "BOOTSNDFOLDER2" "/home/pi/RetroPie/splashscreens-opi"
-			msg-bsn_splashscreen-opi
             ;;
         S6)
             iniSet "BOOTSND" "bootsnd2.ogg"
 			iniSet "BOOTSNDFOLDER" "home-retropie"
 			iniSet "BOOTSNDFOLDER2" "/home/pi/RetroPie/splashscreens-opi"
-			msg-bsn_splashscreen-opi
             ;;
         S7)
             iniSet "BOOTSND" "bootsnd3.ogg"
 			iniSet "BOOTSNDFOLDER" "home-retropie"
 			iniSet "BOOTSNDFOLDER2" "/home/pi/RetroPie/splashscreens-opi"
-			msg-bsn_splashscreen-opi
             ;;
         S8)
             iniSet "BOOTSND" "bootsnd4.ogg"
 			iniSet "BOOTSNDFOLDER" "home-retropie"
 			iniSet "BOOTSNDFOLDER2" "/home/pi/RetroPie/splashscreens-opi"
-			msg-bsn_splashscreen-opi
+            ;;
+        OFF)
+            iniSet "BOOTSND" ""
+			iniSet "BOOTSNDFOLDER" ""
+			iniSet "BOOTSNDFOLDER2" ""
             ;;
     esac
 }
@@ -677,6 +675,7 @@ function gui_splashscreen-opi() {
                 BSN)  
 					configini_splashscreen-opi			
 					change-bsn_splashscreen-opi
+					msg-bsn_splashscreen-opi
                     ;;
                 BSF)  
 					configini_splashscreen-opi			
