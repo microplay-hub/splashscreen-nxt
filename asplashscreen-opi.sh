@@ -20,6 +20,10 @@ do_start () {
     local config="/etc/splashscreen-opi.list"
     local line
     local re="$REGEX_VIDEO\|$REGEX_IMAGE"
+    local bootsndstatus="$AVPLAYER $AVPLAYERO1 $BOOTSNDFOLDER2/$BOODSND"
+    local bootimg1="$IMGVIEWER $IMGVIEWERO3"
+    local bootimg2="$IMGVIEWERO4"
+    local bootimg3="$IMGVIEWERO5"
     local omxiv="/opt/retropie/supplementary/omxiv/omxiv"
     case "$RANDOMIZE" in
         disabled)
@@ -56,12 +60,13 @@ do_start () {
         # Default duration is 12 seconds, check if configured otherwise
         [ -z "$DURATION" ] && DURATION=12
         local delay=$((DURATION/count))
+		local bootsndstatus="$AVPLAYER $AVPLAYERO1 $BOOTSNDFOLDER2/$BOODSND"
         if [ "$RANDOMIZE" = "disabled" ]; then
-            fbi -T 2 -once -t $delay -noverbose -a -l "$config" >/dev/null 2>&1
-	    mpv -vo value -fs /opt/retropie/supplementary/splashscreen-opi/bootsnd.ogg &
+            $bootimg1 $delay $bootimg2 "$config" >/dev/null 2>&1
+	    $bootsndstatus &
         else
-            fbi -T 2 -once -t $delay -noverbose -a "$line" >/dev/null 2>&1
-	    mpv -vo value -fs /opt/retropie/supplementary/splashscreen-opi/bootsnd.ogg &
+            $bootimg2 $delay $bootimg3 "$line" >/dev/null 2>&1
+	    $bootsndstatus &
         fi
     fi
     exit 0

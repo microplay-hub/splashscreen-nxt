@@ -10,7 +10,8 @@
 # See the LICENSE.md file at the top-level directory of this distribution and
 # at https://raw.githubusercontent.com/RetroPie/RetroPie-Setup/master/LICENSE.md
 #
-# splashscreen-opi v1.8 - 2023-02-22
+# splashscreen-opi v2.0 - 2023-03-2023
+# GUI v2
 
 rp_module_id="splashscreen-opi"
 rp_module_desc="Configure Splashscreen for OrangePi"
@@ -64,6 +65,17 @@ _EOF_
     iniSet "DATADIR" "$datadir"
     iniSet "REGEX_IMAGE" "$(_image_exts_splashscreen-opi)"
     iniSet "REGEX_VIDEO" "$(_video_exts_splashscreen-opi)"
+    if isPlatform "sun50i-h616"; then
+	sun50i-h616_splashscreen-opi
+    elif isPlatform "sun50i-h6"; then
+	sun50i-h6_splashscreen-opi
+    elif isPlatform "sun8i-h3"; then
+	sun8i-h3_splashscreen-opi
+    elif isPlatform "armv7-mali"; then
+	armv7-mali_splashscreen-opi
+	elif isPlatform "rpi"; then
+	rpi_splashscreen-opi
+    fi
 
     if [[ ! -f "$configdir/all/$md_id.cfg" ]]; then
         iniConfig "=" '"' "$configdir/all/$md_id.cfg"
@@ -81,6 +93,82 @@ _EOF_
     chown -R $user:$user "$splsetup/splashscreen-opi.sh"
 	chmod -R 755 "$md_inst"
 	rm -r "splashscreen-opi.sh"
+}
+
+
+function sun50i-h616_splashscreen-opi() {
+    iniSet "SBC" "sun50i-h616"
+    iniSet "IMGVIEWER" "fbi"
+    iniSet "IMGVIEWERO1" "--noverbose --autozoom"
+    iniSet "IMGVIEWERO2" "--timeout 6 --once --autozoom --list"
+    iniSet "IMGVIEWERO3" "-T 2 -once -t"
+    iniSet "IMGVIEWERO4" "-noverbose -a -l"
+    iniSet "IMGVIEWERO5" "-noverbose -a"
+    iniSet "AVPLAYER" "mpv"
+    iniSet "AVPLAYEROPT" "-vo value -fs"
+    iniSet "BOOTSND" "bootsnd.ogg"
+    iniSet "BOOTSNDFOLDER" "opt-retropie"
+    iniSet "BOOTSNDFOLDER2" "/opt/retropie/supplementary/splashscreen-opi"
+}
+
+function sun50i-h6_splashscreen-opi() {
+    iniSet "SBC" "sun50i-h6"
+    iniSet "IMGVIEWER" "fbi"
+    iniSet "IMGVIEWERO1" "--noverbose --autozoom"
+    iniSet "IMGVIEWERO2" "--timeout 6 --once --autozoom --list"
+    iniSet "IMGVIEWERO3" "-T 2 -once -t"
+    iniSet "IMGVIEWERO4" "-noverbose -a -l"
+    iniSet "IMGVIEWERO5" "-noverbose -a"
+    iniSet "AVPLAYER" "mpv"
+    iniSet "AVPLAYEROPT" "-vo value -fs"
+    iniSet "BOOTSND" "bootsnd.ogg"
+    iniSet "BOOTSNDFOLDER" "opt-retropie"
+    iniSet "BOOTSNDFOLDER2" "/opt/retropie/supplementary/splashscreen-opi"
+}
+
+function sun8i-h3_splashscreen-opi() {
+    iniSet "SBC" "sun8i-h3"
+    iniSet "IMGVIEWER" "fbi"
+    iniSet "IMGVIEWERO1" "--noverbose --autozoom"
+    iniSet "IMGVIEWERO2" "--timeout 6 --once --autozoom --list"
+    iniSet "IMGVIEWERO3" "-T 2 -once -t"
+    iniSet "IMGVIEWERO4" "-noverbose -a -l"
+    iniSet "IMGVIEWERO5" "-noverbose -a"
+    iniSet "AVPLAYER" "mpv"
+    iniSet "AVPLAYEROPT" "-vo value -fs"
+    iniSet "BOOTSND" "bootsnd.ogg"
+    iniSet "BOOTSNDFOLDER" "opt-retropie"
+    iniSet "BOOTSNDFOLDER2" "/opt/retropie/supplementary/splashscreen-opi"
+}
+
+function armv7-mali_splashscreen-opi() {
+    iniSet "SBC" "armv7-mali"
+    iniSet "IMGVIEWER" "fbi"
+    iniSet "IMGVIEWERO1" "--noverbose --autozoom"
+    iniSet "IMGVIEWERO2" "--timeout 6 --once --autozoom --list"
+    iniSet "IMGVIEWERO3" "-T 2 -once -t"
+    iniSet "IMGVIEWERO4" "-noverbose -a -l"
+    iniSet "IMGVIEWERO5" "-noverbose -a"
+    iniSet "AVPLAYER" "mpv"
+    iniSet "AVPLAYEROPT" "-vo value -fs"
+    iniSet "BOOTSND" "bootsnd.ogg"
+    iniSet "BOOTSNDFOLDER" "opt-retropie"
+    iniSet "BOOTSNDFOLDER2" "/opt/retropie/supplementary/splashscreen-opi"
+}
+
+function rpi_splashscreen-opi() {
+    iniSet "SBC" "rpi"
+    iniSet "IMGVIEWER" "/opt/retropie/supplementary/omxiv/omxiv"
+    iniSet "IMGVIEWERO1" "-b"
+    iniSet "IMGVIEWERO2" "-t 6 -T blend -b --once -f"
+    iniSet "IMGVIEWERO3" "--once -t"
+    iniSet "IMGVIEWERO4" "--layer 1000 -f"
+    iniSet "IMGVIEWERO5" "--layer 1000 -r"
+    iniSet "AVPLAYER" "omxplayer"
+    iniSet "AVPLAYEROPT" "--no-osd -b --layer 10000"
+    iniSet "BOOTSND" "bootsnd.ogg"
+    iniSet "BOOTSNDFOLDER" "opt-retropie"
+    iniSet "BOOTSNDFOLDER2" "/opt/retropie/supplementary/splashscreen-opi"
 }
 
 function _image_exts_splashscreen-opi() {
@@ -118,6 +206,11 @@ function disable_splashscreen-opi() {
     systemctl disable asplashscreen-opi
 }
 
+function configini_splashscreen-opi() {
+	chown $user:$user "$configdir/all/$md_id.cfg"	
+    iniConfig "=" '"' "$configdir/all/$md_id.cfg"	
+}
+
 function configure_splashscreen-opi() {
     [[ "$md_mode" == "remove" ]] && return
 
@@ -135,6 +228,8 @@ function remove_splashscreen-opi() {
     rp_callModule "omxiv" remove
     rm -f /etc/splashscreen-opi.list /etc/systemd/system/asplashscreen-opi.service
     systemctl daemon-reload
+	rm -rf "$md_inst"
+    rm -r "$configdir/all/$md_id.cfg"
 }
 
 function choose_path_splashscreen-opi() {
@@ -254,13 +349,13 @@ function preview_splashscreen-opi() {
                 1)
                     file=$(choose_splashscreen-opi "$path" "image")
                     [[ -z "$file" ]] && break
-                    fbi --noverbose --autozoom "$file"
+                    $imgviewer $imgviewero1 "$file"
                     ;;
                 2)
                     file=$(mktemp)
                     find "$path" -type f ! -regex ".*/\..*" ! -regex ".*LICENSE" ! -regex ".*README.*" ! -regex ".*\.sh" | sort > "$file"
                     if [[ -s "$file" ]]; then
-                        fbi --timeout 6 --once --autozoom --list "$file"
+                        $imgviewer $imgviewero2 "$file"
                     else
                         printMsgs "dialog" "There are no splashscreens installed in $path"
                     fi
@@ -270,12 +365,186 @@ function preview_splashscreen-opi() {
                 3)
                     file=$(choose_splashscreen-opi "$path" "video")
                     [[ -z "$file" ]] && break
-                    mpv -vo sdl -fs "$file"
+                    $avplayer $avplayeropt "$file"
                     ;;
             esac
         done
     done
 }
+
+
+# CHANGE SBC - START
+function change-sbc_splashscreen-opi() {
+    options=(
+        SBC1 "set Boardconfig to sun50i-h616"
+        SBC2 "set Boardconfig to sun50i-h6"
+        SBC3 "set Boardconfig to sun8i-h3"
+        SBC4 "set Boardconfig to armv7-mali"
+        SBC5 "set Boardconfig to rpi"
+		X "[current config: $sbc]"
+    )
+    local cmd=(dialog --backtitle "$__backtitle" --menu "Choose an option." 22 86 16)
+    local choice=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
+
+    case "$choice" in
+        SBC1)
+			sun50i-h616_splashscreen-opi
+            ;;
+        SBC2)
+			sun50i-h6_splashscreen-opi
+            ;;
+        SBC3)
+			sun8i-h3_splashscreen-opi
+            ;;
+        SBC4)
+			armv7-mali_splashscreen-opi
+            ;;
+        SBC5)
+			rpi_splashscreen-opi
+            ;;
+    esac
+}
+
+
+function msg-sbc_splashscreen-opi() {
+		printMsgs "dialog" "Set your SBC Boardtype to $sbc"
+}
+# CHANGE SBC - END
+
+
+# CHANGE IMG - START
+function change-img_splashscreen-opi() {
+    options=(
+        I1 "change IMG-Viewer to fbi (allwinner)"
+        I2 "change IMG-Viewer to omx (rpi)"
+		X "[current setting: $imgviewer]"
+    )
+    local cmd=(dialog --backtitle "$__backtitle" --menu "Choose an option." 22 86 16)
+    local choice=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
+
+    case "$choice" in
+        I1)
+			iniSet "IMGVIEWER" "fbi"
+			iniSet "IMGVIEWERO1" "--noverbose --autozoom"
+			iniSet "IMGVIEWERO2" "--timeout 6 --once --autozoom --list"
+			iniSet "IMGVIEWERO3" "-T 2 -once -t"
+			iniSet "IMGVIEWERO4" "-noverbose -a -l"
+			iniSet "IMGVIEWERO5" "-noverbose -a"
+            ;;
+        I2)
+			iniSet "IMGVIEWER" "/opt/retropie/supplementary/omxiv/omxiv"
+			iniSet "IMGVIEWERO1" "-b"
+			iniSet "IMGVIEWERO2" "-t 6 -T blend -b --once -f"
+			iniSet "IMGVIEWERO3" "--once -t"
+			iniSet "IMGVIEWERO4" "--layer 1000 -f"
+			iniSet "IMGVIEWERO5" "--layer 1000 -r"
+            ;;
+    esac
+}
+# CHANGE IMG - END
+
+
+# CHANGE AVP - START
+function change-avp_splashscreen-opi() {
+    options=(
+        A1 "change Audio-Video-Player to mvp (allwinner)"
+        A2 "change Audio-Video-Player to omxplayer (rpi)"
+		X "[current setting: $avplayer]"
+    )
+    local cmd=(dialog --backtitle "$__backtitle" --menu "Choose an option." 22 86 16)
+    local choice=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
+
+    case "$choice" in
+        A1)
+			iniSet "AVPLAYER" "mpv"
+			iniSet "AVPLAYEROPT" "-vo value -fs"
+            ;;
+        A2)
+			iniSet "AVPLAYER" "omxplayer"
+			iniSet "AVPLAYEROPT" "--no-osd -b --layer 10000"
+            ;;
+    esac
+}
+# CHANGE AVP - END
+
+
+# CHANGE BOOTSND - START
+function change-bsn_splashscreen-opi() {
+    options=(
+        S1 "set File: bootsnd.ogg in folder [opt-retropie]"
+        S2 "set File: bootsnd2.ogg in folder [opt-retropie]"
+        S3 "set File: bootsnd3.ogg in folder [opt-retropie]"
+        S4 "set File: bootsnd4.ogg in folder [opt-retropie]"
+        S5 "set File: bootsnd.ogg in folder [home-retropie]"
+        S6 "set File: bootsnd2.ogg in folder [home-retropie]"
+        S7 "set File: bootsnd3.ogg in folder [home-retropie]"
+        S8 "set File: bootsnd4.ogg in folder [home-retropie]"
+		X "[current setting: $bootsndfolder2/$boodsnd]"
+    )
+    local cmd=(dialog --backtitle "$__backtitle" --menu "Choose an option." 22 86 16)
+    local choice=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
+
+    case "$choice" in
+        S1)
+            iniSet "BOOTSND" "bootsnd.ogg"
+			iniSet "BOOTSNDFOLDER" "opt-retropie"
+			iniSet "BOOTSNDFOLDER2" "/opt/retropie/supplementary/splashscreen-opi"
+			msg-bsn_splashscreen-opi
+            ;;
+        S2)
+            iniSet "BOOTSND" "bootsnd2.ogg"
+			iniSet "BOOTSNDFOLDER" "opt-retropie"
+			iniSet "BOOTSNDFOLDER2" "/opt/retropie/supplementary/splashscreen-opi"
+			msg-bsn_splashscreen-opi
+            ;;
+        S3)
+            iniSet "BOOTSND" "bootsnd3.ogg"
+			iniSet "BOOTSNDFOLDER" "opt-retropie"
+			iniSet "BOOTSNDFOLDER2" "/opt/retropie/supplementary/splashscreen-opi"
+			msg-bsn_splashscreen-opi
+            ;;
+        S4)
+            iniSet "BOOTSND" "bootsnd4.ogg"
+			iniSet "BOOTSNDFOLDER" "opt-retropie"
+			iniSet "BOOTSNDFOLDER2" "/opt/retropie/supplementary/splashscreen-opi"
+			msg-bsn_splashscreen-opi
+            ;;
+        S5)
+            iniSet "BOOTSND" "bootsnd.ogg"
+			iniSet "BOOTSNDFOLDER" "home-retropie"
+			iniSet "BOOTSNDFOLDER2" "/home/pi/RetroPie/splashscreens-opi"
+			msg-bsn_splashscreen-opi
+            ;;
+        S6)
+            iniSet "BOOTSND" "bootsnd2.ogg"
+			iniSet "BOOTSNDFOLDER" "home-retropie"
+			iniSet "BOOTSNDFOLDER2" "/home/pi/RetroPie/splashscreens-opi"
+			msg-bsn_splashscreen-opi
+            ;;
+        S7)
+            iniSet "BOOTSND" "bootsnd3.ogg"
+			iniSet "BOOTSNDFOLDER" "home-retropie"
+			iniSet "BOOTSNDFOLDER2" "/home/pi/RetroPie/splashscreens-opi"
+			msg-bsn_splashscreen-opi
+            ;;
+        S8)
+            iniSet "BOOTSND" "bootsnd4.ogg"
+			iniSet "BOOTSNDFOLDER" "home-retropie"
+			iniSet "BOOTSNDFOLDER2" "/home/pi/RetroPie/splashscreens-opi"
+			msg-bsn_splashscreen-opi
+            ;;
+    esac
+}
+
+function msg-bsn_splashscreen-opi() {
+		printMsgs "dialog" "copy your bootsound $bootsnd in the folder [$bootsndfolder2]"
+}
+# CHANGE BOOTSND - END
+
+
+
+		
+
 
 
 function gui_splashscreen-opi() {
@@ -285,6 +554,31 @@ function gui_splashscreen-opi() {
     fi
     local cmd=(dialog --backtitle "$__backtitle" --menu "Choose an option." 22 86 16)
     while true; do
+	
+        iniConfig "=" '"' "$configdir/all/$md_id.cfg"
+		
+        iniGet "SBC"
+        local sbc=${ini_value}
+        iniGet "IMGVIEWER"
+        local imgviewer=${ini_value}
+        iniGet "IMGVIEWERO1"
+        local imgviewero1=${ini_value}	
+        iniGet "IMGVIEWERO2"
+        local imgviewero2=${ini_value}
+        iniGet "AVPLAYER"
+        local avplayer=${ini_value}	
+        iniGet "AVPLAYEROPT"
+        local avplayeropt=${ini_value}
+        iniGet "BOOTSND"
+        local bootsnd=${ini_value}	
+        iniGet "BOOTSNDFOLDER"
+        local bootsndfolder=${ini_value}
+        iniGet "BOOTSNDFOLDER2"
+        local bootsndfolder2=${ini_value}
+        iniGet "DURATION"
+        # default splashscreen duration is 12 seconds
+        local duration=${ini_value:-12}	
+	
         local enabled=0
         [[ -n "$(find "/etc/systemd/system/"*".wants" -type l -name "asplashscreen-opi.service")" ]] && enabled=1
         local options=(1 "Choose splashscreen")
@@ -304,14 +598,16 @@ function gui_splashscreen-opi() {
             8 "Update RetroPie splashscreens"
         )
 
-        iniConfig "=" '"' "$configdir/all/$md_id.cfg"
-        iniGet "DURATION"
-        # default splashscreen duration is 12 seconds
-        local duration=${ini_value:-12}
-
         options+=(
             A "Configure image splashscreen duration ($duration sec)"
+			SBC "Boardconfig: ($sbc)"
+			AVP "AV-Player: ($avplayer)"
+			IMG "Imageviewer: ($imgviewer)"
+			BSN "Bootsound: ($bootsnd)"
+			BSF "Bootsoundfolder: ($bootsndfolder)"
+            TEK "### Script by Liontek1985 ###"
             )
+			
         local choice=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
         if [[ -n "$choice" ]]; then
             case "$choice" in
@@ -344,6 +640,7 @@ function gui_splashscreen-opi() {
                     set_append_splashscreen-opi append
                     ;;
                 7)
+					configini_splashscreen-opi
                     preview_splashscreen-opi
                     ;;
                 8)
@@ -355,6 +652,28 @@ function gui_splashscreen-opi() {
                         iniSet "DURATION" "${duration//[^[:digit:]]/}"
                     fi
                     ;;
+                SBC)  
+					configini_splashscreen-opi				
+					change-sbc_splashscreen-opi
+					msg-sbc_splashscreen-opi
+                    ;;
+                AVP)  
+					configini_splashscreen-opi			
+					change-avp_splashscreen-opi
+                    ;;
+                IMG)  
+					configini_splashscreen-opi		
+					change-img_splashscreen-opi
+                    ;;
+                BSN)  
+					configini_splashscreen-opi			
+					change-bsn_splashscreen-opi
+                    ;;
+                BSF)  
+					configini_splashscreen-opi			
+					change-bsn_splashscreen-opi
+                    ;;
+
             esac
         else
             break
