@@ -65,17 +65,7 @@ _EOF_
     iniSet "DATADIR" "$datadir"
     iniSet "REGEX_IMAGE" "$(_image_exts_splashscreen-opi)"
     iniSet "REGEX_VIDEO" "$(_video_exts_splashscreen-opi)"
-    if isPlatform "sun50i-h616"; then
-	sun50i-h616_splashscreen-opi
-    elif isPlatform "sun50i-h6"; then
-	sun50i-h6_splashscreen-opi
-    elif isPlatform "sun8i-h3"; then
-	sun8i-h3_splashscreen-opi
-    elif isPlatform "armv7-mali"; then
-	armv7-mali_splashscreen-opi
-	elif isPlatform "rpi"; then
-	rpi_splashscreen-opi
-    fi
+
 
     if [[ ! -f "$configdir/all/$md_id.cfg" ]]; then
         iniConfig "=" '"' "$configdir/all/$md_id.cfg"
@@ -93,6 +83,23 @@ _EOF_
     chown -R $user:$user "$splsetup/splashscreen-opi.sh"
 	chmod -R 755 "$md_inst"
 	rm -r "splashscreen-opi.sh"
+	
+    if isPlatform "sun50i-h616"; then
+	configini_splashscreen-opi
+	sun50i-h616_splashscreen-opi
+    elif isPlatform "sun50i-h6"; then
+	configini_splashscreen-opi
+	sun50i-h6_splashscreen-opi
+    elif isPlatform "sun8i-h3"; then
+	configini_splashscreen-opi
+	sun8i-h3_splashscreen-opi
+    elif isPlatform "armv7-mali"; then
+	configini_splashscreen-opi
+	armv7-mali_splashscreen-opi
+	elif isPlatform "rpi"; then
+	configini_splashscreen-opi
+	rpi_splashscreen-opi
+    fi
 }
 
 
