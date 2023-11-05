@@ -10,14 +10,14 @@
 # See the LICENSE.md file at the top-level directory of this distribution and
 # at https://raw.githubusercontent.com/RetroPie/RetroPie-Setup/master/LICENSE.md
 #
-# splashscreen-opi v2.06 - 2023-03-10
+# splashscreen-opi v2.08 - 2023-11-05
 # GUI v2
 
 rp_module_id="splashscreen-opi"
-rp_module_desc="Configure Splashscreen for OrangePi"
+rp_module_desc="Configure Splashscreen for KMS and PI-Boards"
 rp_module_section="main"
 rp_module_repo="git https://github.com/microplay-hub/splashscreen-opi.git master"
-rp_module_flags="noinstclean !rpi"
+rp_module_flags="noinstclean"
 
 function _update_hook_splashscreen-opi() {
     # make sure splashscreen is always up to date if updating just RetroPie-Setup
@@ -97,9 +97,15 @@ _EOF_
     elif isPlatform "armv7-mali"; then
 	configini_splashscreen-opi
 	armv7-mali_splashscreen-opi
-	elif isPlatform "rpi"; then
+    elif isPlatform "rpi4"; then
 	configini_splashscreen-opi
-	rpi_splashscreen-opi
+	rpi4_splashscreen-opi
+    elif isPlatform "rpi3"; then
+	configini_splashscreen-opi
+	rpi3_splashscreen-opi
+    elif isPlatform "rpi2"; then
+	configini_splashscreen-opi
+	rpi2_splashscreen-opi
     fi
 }
 
@@ -164,8 +170,38 @@ function armv7-mali_splashscreen-opi() {
     iniSet "BOOTSNDFOLDER2" "/opt/retropie/supplementary/splashscreen-opi"
 }
 
-function rpi_splashscreen-opi() {
-    iniSet "SBC" "rpi"
+function rpi4_splashscreen-opi() {
+    iniSet "SBC" "rpi4"
+    iniSet "IMGVIEWER" "/opt/retropie/supplementary/omxiv/omxiv"
+    iniSet "IMGVIEWERO1" "-b"
+    iniSet "IMGVIEWERO2" "-t 6 -T blend -b --once -f"
+    iniSet "IMGVIEWERO3" "--once -t"
+    iniSet "IMGVIEWERO4" "--layer 1000 -f"
+    iniSet "IMGVIEWERO5" "--layer 1000 -r"
+    iniSet "AVPLAYER" "mpv"
+    iniSet "AVPLAYEROPT" "-vo value -fs"
+    iniSet "BOOTSND" "bootsnd.ogg"
+    iniSet "BOOTSNDFOLDER" "opt-retropie"
+    iniSet "BOOTSNDFOLDER2" "/opt/retropie/supplementary/splashscreen-opi"
+}
+
+function rpi3_splashscreen-opi() {
+    iniSet "SBC" "rpi3"
+    iniSet "IMGVIEWER" "/opt/retropie/supplementary/omxiv/omxiv"
+    iniSet "IMGVIEWERO1" "-b"
+    iniSet "IMGVIEWERO2" "-t 6 -T blend -b --once -f"
+    iniSet "IMGVIEWERO3" "--once -t"
+    iniSet "IMGVIEWERO4" "--layer 1000 -f"
+    iniSet "IMGVIEWERO5" "--layer 1000 -r"
+    iniSet "AVPLAYER" "omxplayer"
+    iniSet "AVPLAYEROPT" "--no-osd -b --layer 10000"
+    iniSet "BOOTSND" "bootsnd.ogg"
+    iniSet "BOOTSNDFOLDER" "opt-retropie"
+    iniSet "BOOTSNDFOLDER2" "/opt/retropie/supplementary/splashscreen-opi"
+}
+
+function rpi2_splashscreen-opi() {
+    iniSet "SBC" "rpi2"
     iniSet "IMGVIEWER" "/opt/retropie/supplementary/omxiv/omxiv"
     iniSet "IMGVIEWERO1" "-b"
     iniSet "IMGVIEWERO2" "-t 6 -T blend -b --once -f"
