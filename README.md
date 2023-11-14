@@ -1,4 +1,4 @@
-# RetroPie Modul - Splashscreen-Opi
+# RetroPie Modul - Splashscreen-nxt
 
 Basic-Code:	RetroPie-Modul Splashscreen</br>
 Moded-Code:	Liontek1985</br>
