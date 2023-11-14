@@ -27,10 +27,13 @@ function _update_hook_splashscreen-nxt() {
     fi
 }
 
-
 function depends_splashscreen-nxt() {
     local params=(fbi vorbis-tools mpv insserv)
     getDepends "${params[@]}"
+}
+
+function _update_hook_splashscreen-nxt() {
+    renameModule "splashscreen-opi" "splashscreen-nxt"
 }
 
 function sources_splashscreen-nxt() {
