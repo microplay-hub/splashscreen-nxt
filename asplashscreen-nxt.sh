@@ -6,7 +6,7 @@ REGEX_VIDEO="\.avi\|\.mov\|\.mp4\|\.mkv\|\.3gp\|\.mpg\|\.mp3\|\.wav\|\.m4a\|\.aa
 REGEX_IMAGE="\.bmp\|\.jpg\|\.jpeg\|\.gif\|\.png\|\.ppm\|\.tiff\|\.webp"
 
 # Load user settings
-. /opt/retropie/configs/all/splashscreen-opi.cfg
+. /opt/retropie/configs/all/splashscreen-nxt.cfg
 
 is_fkms() {
     if grep -q okay /proc/device-tree/soc/v3d@7ec00000/status 2> /dev/null || grep -q okay /proc/device-tree/soc/firmwarekms@7e600000/status 2> /dev/null ; then
@@ -17,7 +17,7 @@ is_fkms() {
 }
 
 do_start () {
-    local config="/etc/splashscreen-opi.list"
+    local config="/etc/splashscreen-nxt.list"
     local line
     local re="$REGEX_VIDEO\|$REGEX_IMAGE"
     local bootsndstatus="$AVPLAYER $AVPLAYERO1 $BOOTSNDFOLDER2/$BOODSND"
@@ -30,13 +30,13 @@ do_start () {
             line="$(head -1 "$config")"
             ;;
         retropie)
-            line="$(find "$ROOTDIR/supplementary/splashscreen-opi" -type f | grep "$re" | shuf -n1)"
+            line="$(find "$ROOTDIR/supplementary/splashscreen-nxt" -type f | grep "$re" | shuf -n1)"
             ;;
         custom)
-            line="$(find "$DATADIR/splashscreens-opi" -type f | grep "$re" | shuf -n1)"
+            line="$(find "$DATADIR/splashscreens-nxt" -type f | grep "$re" | shuf -n1)"
             ;;
         all)
-            line="$(find "$ROOTDIR/supplementary/splashscreen-opi" "$DATADIR/splashscreens-opi" -type f | grep "$re" | shuf -n1)"
+            line="$(find "$ROOTDIR/supplementary/splashscreen-nxt" "$DATADIR/splashscreens-nxt" -type f | grep "$re" | shuf -n1)"
             ;;
         list)
             line="$(cat "$config" | shuf -n1)"
@@ -87,7 +87,7 @@ case "$1" in
         exit 0
         ;;
     *)
-        echo "Usage: asplashscreen-opi [start|stop]" >&2
+        echo "Usage: asplashscreen-nxt [start|stop]" >&2
         exit 3
         ;;
 esac
